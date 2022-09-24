@@ -25,6 +25,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy=javax.persistence.GenerationType.IDENTITY)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Integer id;
 	
 	@Column(nullable = false)
