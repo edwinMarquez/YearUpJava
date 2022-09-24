@@ -13,6 +13,9 @@ public class WebController {
         return "index";
     }
 
-
+    @RequestMapping("/login")
+    String loginPage(Model model){
+        return "login";
+    }
 
 }

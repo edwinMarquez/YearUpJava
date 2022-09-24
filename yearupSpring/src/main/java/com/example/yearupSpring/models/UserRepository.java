@@ -1,7 +1,7 @@
 package com.example.yearupSpring.models;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.data.jpa.repository.Query;
 
 
 /**
@@ -15,6 +15,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface UserRepository extends JpaRepository<User,Integer>{
 	
-	
+	@Query("SELECT new com.example.yearupSpring.models.User(id, name, username, password) FROM user_inf WHERE username = ?1")
+    User findByUsername(String username);
 
 }
