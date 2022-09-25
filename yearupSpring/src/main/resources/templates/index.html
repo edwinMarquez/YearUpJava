@@ -2,17 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>YearUp Java</title>
+        <title>YearUp Java - Llama bank</title>
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+
+        <link href="./resources/styles/basestyle.css" rel="stylesheet">
+        <link href="./resources/styles/index.css" rel="stylesheet">
     </head>
 
     <body>
 
-
         <h1>YearUp Java</h1>
+        <div class="llama-banner row" >
+            <div class="imgceollama col-sm-3">
+<!--                <img src="./resources/images/llama.png">-->
+            </div>
+            <div class="bannertext col-sm-9">
+                <h2>Llama bank</h2>
+                <p>
+                    The solution you didn't know you needed, but now you do.<br>
+                    Our single transfer service will aid you on your day-to-day life,
+                    regardless if you are eating grass or growing wool for the winter days.
+                </p>
+            </div>
+
+        </div>
+
+        <td>
+<!--            if authenticated-->
+            <div th:if="${auth} == true" th:text="'Hello ' + ${username}">
+                Hello user
+            </div>
+<!--            else -->
+            <div class="login-box" th:unless="${auth} == true">
+
+
+                <div class="card">
+                    <div class="card-body">
+                            <h4 class="card-title">Join US !</h4>
+                            <p class="card-text">
+                                Best way to llama,
+                                If you already have an account, Log In <br>
+                                else , we invite you to create one, Sign Up.
+                            </p>
+                        <form action="./login" style="display:inline;padding:20px;">
+                            <button class="btn btn-primary" type="submit">Log In</button>
+                        </form>
+                        <form action="./signin" style="display:inline;padding:20px">
+                            <button class="btn btn-primary" type="submit">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </td>
 
     </body>
 
