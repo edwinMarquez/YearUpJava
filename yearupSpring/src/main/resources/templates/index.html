@@ -37,6 +37,7 @@
                 <div class="auth-box card shadow">
                     <h2><p th:text="'Hello ' + ${username}">Hello user</p></h2>
                     <form action="/logout" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                         <input type="submit" class="btn btn-danger" value="Sign out"/>
                     </form>
 

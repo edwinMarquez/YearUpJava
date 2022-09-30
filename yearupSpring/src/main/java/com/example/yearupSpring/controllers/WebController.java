@@ -11,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.thymeleaf.util.ArrayUtils;
@@ -57,13 +59,14 @@ public class WebController {
         return "login";
     }
 
-    @RequestMapping("/signup")
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
     String signUp(Model model){
         return "signup";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    String signUpPost(Model model){
+    String signUpPost(Model model, @RequestBody String params){
+
         return "index";
     }
 
