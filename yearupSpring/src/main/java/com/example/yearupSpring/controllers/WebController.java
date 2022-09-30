@@ -9,15 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.ArrayUtils;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -27,6 +27,8 @@ public class WebController {
     AccountRepository accountRepo;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @RequestMapping("/")
     String indexPage(Model model){
@@ -65,9 +67,44 @@ public class WebController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    String signUpPost(Model model, @RequestBody String params){
+    @Transactional
+    String signUpPost(Model model, @RequestParam String username, @RequestParam String name,
+                      @RequestParam String password, @RequestParam String passwordverify){
 
-        return "index";
+        if(password.isEmpty()){
+            model.addAttribute("error", "password can't be empty");
+            return "signup";
+        }
+        if(!password.equals(passwordverify)){
+            model.addAttribute("error","Passwords don't match");
+            return "signup";
+        }
+        User user = userRepository.findByUsername(username);
+        if(user != null){
+            model.addAttribute("error","username is taken, please choose a new one");
+            return "signup";
+        }
+
+        int totalUsers = (int) userRepository.count();
+        user = new User();
+        user.setName(name);
+        user.setUsername(username);
+        user.setPassword(base64ToBytes(passwordEncoder.encode(password)));
+        user = userRepository.save(user);
+
+        //give the user an account.
+        Account account = new Account();
+        account.setUser(user);
+        account.setBalance(500000);
+        accountRepo.save(account);
+        model.addAttribute("success", "Success!");
+        return "signup";
+
+//        return "redirect:/";
+    }
+
+    private byte[] base64ToBytes(String base64){
+        return Base64.getDecoder().decode(base64);
     }
 
 

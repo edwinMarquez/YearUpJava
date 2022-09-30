@@ -1,16 +1,19 @@
 package com.example.yearupSpring.models;
 
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity(name="account_inf")
 public class Account {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @OneToOne
-    @JoinColumn(name = "id",table = "userId")
+
+    @OneToOne(optional = false, targetEntity = User.class)
+    @JoinColumn(name = "userid")
     private User user;
     @Column
     private Integer balance;
