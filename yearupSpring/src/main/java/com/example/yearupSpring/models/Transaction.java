@@ -13,8 +13,13 @@ public class Transaction {
     private Integer id;
 
     @ManyToOne(optional = false, targetEntity = User.class)
-    @JoinColumn(name = "userid", nullable = false)
-    private User user;
+    @JoinColumn(name = "fromuser", nullable = false)
+    private User fromUser;
+
+    @ManyToOne(optional = false, targetEntity = User.class)
+    @JoinColumn(name = "touser", nullable = false)
+    private User toUser;
+
 
     @Column
     private Integer amount;
@@ -30,12 +35,20 @@ public class Transaction {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getFromUser() {
+        return fromUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
+    }
+
+    public User getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
     }
 
     public Integer getAmount() {
@@ -57,6 +70,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return String.format("Transaction id:%d user:%s amount:%d, timeStamp:%d",id, user.getName(), amount, transactionTime);
+        return String.format("Transaction id:%d fromUser:%s toUser:%s amount:%d, timeStamp:%d",id, fromUser.getName(), toUser.getName(), amount, transactionTime);
     }
 }

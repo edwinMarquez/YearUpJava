@@ -7,6 +7,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -51,25 +52,27 @@ public class ShellSample {
 			toAcc.setBalance(toAcc.getBalance() + amount);
 
 			Transaction transactionFrom = new Transaction();
-			transactionFrom.setUser(fromAcc.getUser());
+			transactionFrom.setFromUser(fromAcc.getUser());
+			transactionFrom.setToUser(toAcc.getUser());
 			transactionFrom.setAmount(amount);
 			transactionFrom.setTransactionTime(System.currentTimeMillis());
-
-			Transaction transactionTo = new Transaction();
-			transactionTo.setUser(toAcc.getUser());
-			transactionTo.setAmount(- amount);
-			transactionTo.setTransactionTime(System.currentTimeMillis());
 
 
 			accountRepo.save(fromAcc);
 			accountRepo.save(toAcc);
 			transactionRepo.save(transactionFrom);
-			transactionRepo.save(transactionTo);
 
 		}catch (Exception e){
 			return "NULL";
 		}
 		return "Ok";
+	}
+
+
+	@ShellMethod
+	public String getTransferActivity(int userId){
+		Collection<Transaction> activity = transactionRepo.getActivity(userId);
+		return Arrays.toString(activity.toArray());
 	}
 	
 	

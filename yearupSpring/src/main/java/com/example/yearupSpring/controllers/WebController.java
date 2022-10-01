@@ -1,10 +1,7 @@
 package com.example.yearupSpring.controllers;
 
 
-import com.example.yearupSpring.models.Account;
-import com.example.yearupSpring.models.AccountRepository;
-import com.example.yearupSpring.models.User;
-import com.example.yearupSpring.models.UserRepository;
+import com.example.yearupSpring.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,9 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.util.ArrayUtils;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -24,9 +20,11 @@ import java.util.List;
 public class WebController {
 
     @Autowired
-    AccountRepository accountRepo;
+    AccountRepository accountRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    TransactionRepository transactionRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -37,7 +35,7 @@ public class WebController {
         boolean authenticated = !(authentication instanceof AnonymousAuthenticationToken);
         if(authenticated){
             User user = userRepository.findByUsername(username);
-            Account account = accountRepo.findByUser(user);
+            Account account = accountRepository.findByUser(user);
             model.addAttribute("balance",(account.getBalance()/100));
             List<User> users = userRepository.findAll();
             String[] userNames = new String[users.size()-1];
@@ -96,11 +94,57 @@ public class WebController {
         Account account = new Account();
         account.setUser(user);
         account.setBalance(500000);
-        accountRepo.save(account);
+        accountRepository.save(account);
         model.addAttribute("success", "Success!");
         return "signup";
+    }
 
-//        return "redirect:/";
+
+    @RequestMapping(value = "/transfer", method = RequestMethod.POST)
+    @Transactional
+    String postTransfer(RedirectAttributes redirectAttributes, @RequestParam String transferTo, @RequestParam String amount){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean authenticated = !(authentication instanceof AnonymousAuthenticationToken);
+        if(!authenticated){
+            redirectAttributes.addFlashAttribute("error","you need to be authenticated in order to make a transfer");
+            return "redirect:/";
+        }
+        int transferAmount = (int)(Float.parseFloat(amount) * 100);
+        if(transferAmount <= 0){
+            redirectAttributes.addFlashAttribute("error","only positive amounts are allowed for transfer");
+            return "redirect:/";
+        }
+        String thisUser = authentication.getName();
+        User fromUser = userRepository.findByUsername(thisUser);
+        User toUser = userRepository.findByUsername(transferTo);
+        if(toUser == null){
+            redirectAttributes.addFlashAttribute("error","wrong user to send to");
+            return "redirect:/";
+        }
+        Account fromAccount = accountRepository.findByUser(fromUser);
+        if(fromAccount.getBalance() < transferAmount){
+            redirectAttributes.addFlashAttribute("error","Insufficient funds");
+            return "redirect:/";
+        }
+        Account toAccount = accountRepository.findByUser(toUser);
+        //update account balances.
+        fromAccount.setBalance(fromAccount.getBalance() - transferAmount);
+        toAccount.setBalance(toAccount.getBalance() + transferAmount);
+        //create related transaction record
+        Transaction transaction = new Transaction();
+        transaction.setFromUser(fromUser);
+        transaction.setToUser(toUser);
+        transaction.setAmount(transferAmount);
+        transaction.setTransactionTime(System.currentTimeMillis());
+        //save modified information
+        userRepository.save(fromUser);
+        userRepository.save(toUser);
+        accountRepository.save(fromAccount);
+        accountRepository.save(toAccount);
+        transactionRepository.save(transaction);
+        redirectAttributes.addFlashAttribute("success","SUCCESS! transfer completed");
+        return "redirect:/";
     }
 
     private byte[] base64ToBytes(String base64){
