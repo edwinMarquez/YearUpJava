@@ -41,3 +41,38 @@
     padding:20px;
     text-align:center;
 }
+
+.carousel-box{
+    width: 40%;
+    margin:auto;
+    padding:20dp;
+    text-align:center;
+}
+
+.auth-box{
+    width:50%;
+    margin:auto;
+    padding: 20px;
+    margin-bottom:40px;
+}
+
+.carousel-caption{
+    position: absolute;
+    background-color:black;
+    color:white;
+    mix-blend-mode:multiply;
+    text-align:left;
+    bottom:0px;
+    left:0px;
+}
+
+#carousel{
+    padding-bottom:20px;
+}
+
+#transactionsbox{
+    width:75%;
+    margin:auto;
+    padding:20px;
+}
+

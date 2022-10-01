@@ -16,10 +16,12 @@ CREATE TABLE IF NOT EXISTS account_inf(
 
 CREATE TABLE IF NOT EXISTS transaction_inf(
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    userid INTEGER NOT NULL,
+    fromuser INTEGER NOT NULL,
+    touser INTEGER NOT NULL,
     amount INTEGER NOT NULL,
     transactiontime BIGINT NOT NULL,
-    FOREIGN KEY (userid) REFERENCES user_inf(id)
+    FOREIGN KEY (fromuser) REFERENCES user_inf(id),
+    FOREIGN KEY (touser) REFERENCES user_inf(id)
 );
 
 

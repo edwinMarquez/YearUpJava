@@ -2,12 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>YearUp Java - Llama bank</title>
+        <title>YearUp Java - Llama Exchange</title>
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-
 
         <link href="./resources/styles/basestyle.css" rel="stylesheet">
         <link href="./resources/styles/index.css" rel="stylesheet">
@@ -21,7 +20,7 @@
 <!--                <img src="./resources/images/llama.png">-->
             </div>
             <div class="bannertext col-sm-9">
-                <h2>Llama bank</h2>
+                <h2>Llama Exchange</h2>
                 <p>
                     The solution you didn't know you needed, but now you do.<br>
                     Our single transfer service will aid you on your day-to-day life,
@@ -31,16 +30,64 @@
 
         </div>
 
+        <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+        <div class="alert alert-success" th:if="${success}" th:text="${success}"></div>
+
         <td>
 <!--            if authenticated-->
-            <div th:if="${auth} == true" th:text="'Hello ' + ${username}">
-                Hello user
+            <div th:if="${auth} == true">
+
+                <div class="auth-box card shadow">
+                    <h2><p th:text="'Hello ' + ${username}">Hello user</p></h2>
+                    <form action="/logout" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <input type="submit" class="btn btn-danger" value="Sign out"/>
+                    </form>
+
+                    <br><br><h3>Your current balance is: </h3><br>
+                    <h4><p th:text="${balance} +  ' llams'"></p></h4><br><br>
+
+
+                    <div th:if="${otherUsers}">
+                        <h2>Send Money</h2><br>
+                        <h4>To:</h4>
+                        <form action="/transfer" method="post">
+                            <select name="transferTo" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                <option class="dropdown-item" th:each="userName: ${otherUsers}" th:text="${userName}" th:value="${userName}">UserName</option>
+                            </select>
+
+                            <h4>Amount: </h4>
+                            <input class="form-control" type="number" step="0.01" placeholder="0.0" name="amount" min="0"/>
+                            <br>
+                            <button class="btn btn-primary" type="submit">Send</button>
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        </form>
+
+
+                    </div>
+                </div>
+
+
+                <!--user acitivty ?-->
+                <div id="transactionsbox" class="card shadow" th:if="${transactions}">
+                    <h3>Your activity: </h3><br>
+                    <ul class="list-group">
+                        <li th:each="transaction : ${transactions}"
+                            th:class="${transaction.fromUser.username == username? 'list-group-item list-group-item-danger' : 'list-group-item list-group-item-success'}"
+                            th:text="${transaction.fromUser.username == username? 'send to: '+transaction.toUser.username : 'received from: '+transaction.fromUser.username} + ' amount: ' + ${transaction.amount /100}"
+                        ></li>
+                    </ul>
+                </div>
+                <br><br>
+
             </div>
+
+
 <!--            else -->
             <div class="login-box" th:unless="${auth} == true">
 
 
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-body">
                             <h4 class="card-title">Join US !</h4>
                             <p class="card-text">
@@ -48,17 +95,54 @@
                                 If you already have an account, Log In <br>
                                 else , we invite you to create one, Sign Up.
                             </p>
-                        <form action="./login" style="display:inline;padding:20px;">
+                        <form action="/login" style="display:inline;padding:20px;">
                             <button class="btn btn-primary" type="submit">Log In</button>
                         </form>
-                        <form action="./signin" style="display:inline;padding:20px">
-                            <button class="btn btn-primary" type="submit">Sign Up</button>
+                        <form action="/signup" style="display:inline;padding:20px">
+                            <button class="btn btn-outline-primary" type="submit">Sign Up</button>
                         </form>
                     </div>
                 </div>
             </div>
         </td>
 
+
+<div class="carousel-box">
+        <div id="carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <h2 class="carousel-caption">Our location: <br> we provide the most accommodating location</h2>
+                    <img class="d-block w-100" src="./resources/images/location.png" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <h2 class="carousel-caption">Regardless of your spending we offer great services</h2>
+                    <img class="d-block w-100" src="./resources/images/50bill.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <h2 class="carousel-caption">Another promotional text</h2>
+                    <img class="d-block w-100" src="./resources/images/100bill.jpg" alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+</div>
+
+
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="./resources/javascript/index.js"></script>
     </body>
 
 

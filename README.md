@@ -15,4 +15,6 @@ If java version needs to be installed, references can be found here [JDK Install
 ## Content:
 
 ### week 9 10 11: 
-We will be using the 'yearupSpring' project. This project will the reference for a Spring application and will serve as an entry point for multiple java concepts. 
+We will be using the 'yearupSpring' project. This project will the reference for a Spring application and will serve as an entry point for multiple java concepts.
+
+![sample website](https://github.com/edwinMarquez/YearUpJava/blob/springSampleApp/yearupSpring/src/main/resources/static/resources/images/yearupsample.png?raw=true)
