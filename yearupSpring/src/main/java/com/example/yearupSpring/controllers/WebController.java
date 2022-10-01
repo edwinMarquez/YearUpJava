@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Base64;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -48,6 +49,10 @@ public class WebController {
             }
             if(userNames.length > 0){
                 model.addAttribute("otherUsers",userNames);
+            }
+            Collection<Transaction> activity = transactionRepository.getActivity(user.getId());
+            if(activity != null && !activity.isEmpty()){
+                model.addAttribute("transactions",activity.toArray());
             }
         }
         model.addAttribute("auth",authenticated);
