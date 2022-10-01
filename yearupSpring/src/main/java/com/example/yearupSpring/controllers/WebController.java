@@ -46,7 +46,9 @@ public class WebController {
                     i++;
                 }
             }
-            model.addAttribute("otherUsers",userNames);
+            if(userNames.length > 0){
+                model.addAttribute("otherUsers",userNames);
+            }
         }
         model.addAttribute("auth",authenticated);
         model.addAttribute("username",username);
