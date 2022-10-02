@@ -37,13 +37,15 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests((requests) -> requests
-                .antMatchers("/","/logout","/signup","/users","/resources/**")
+                .antMatchers("/","/logout","/signup","/users","/resources/**","/h2-console/**")
                 .permitAll()
                 .anyRequest().authenticated()
         ).formLogin((form) -> form.loginPage("/login").defaultSuccessUrl("/",true).permitAll())
-                .logout().logoutSuccessUrl("/")
-                .and()
-                .csrf();
+         .logout().logoutSuccessUrl("/")
+         .and()
+         .csrf().ignoringAntMatchers("/h2-console/**")
+         .and().headers().frameOptions().sameOrigin() //allow this for h2-console
+        ;
 
         return http.build();
     }
