@@ -1,4 +1,4 @@
-package dev.edwinsf.models;
+package com.example.yearupSpring.models;
 
 public class Account {
 	

@@ -1,6 +1,7 @@
-package dev.edwinsf;
+package com.example.yearupSpring;
 
-import dev.edwinsf.models.Account;
+
+import com.example.yearupSpring.models.Account;
 
 public class AccountsHelper {
 
