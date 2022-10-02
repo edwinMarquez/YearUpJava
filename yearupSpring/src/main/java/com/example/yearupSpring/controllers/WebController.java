@@ -37,7 +37,7 @@ public class WebController {
         if(authenticated){
             User user = userRepository.findByUsername(username);
             Account account = accountRepository.findByUser(user);
-            model.addAttribute("balance",(account.getBalance()/100));
+            model.addAttribute("balance",(account.getBalance()/100f));
             List<User> users = userRepository.findAll();
             String[] userNames = new String[users.size()-1];
 
@@ -117,7 +117,7 @@ public class WebController {
             redirectAttributes.addFlashAttribute("error","you need to be authenticated in order to make a transfer");
             return "redirect:/";
         }
-        int transferAmount = (int)(Float.parseFloat(amount) * 100);
+        int transferAmount = (int)(Float.parseFloat(amount) * 100f);
         if(transferAmount <= 0){
             redirectAttributes.addFlashAttribute("error","only positive amounts are allowed for transfer");
             return "redirect:/";

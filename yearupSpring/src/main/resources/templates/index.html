@@ -74,7 +74,7 @@
                     <ul class="list-group">
                         <li th:each="transaction : ${transactions}"
                             th:class="${transaction.fromUser.username == username? 'list-group-item list-group-item-danger' : 'list-group-item list-group-item-success'}"
-                            th:text="${transaction.fromUser.username == username? 'send to: '+transaction.toUser.username : 'received from: '+transaction.fromUser.username} + ' amount: ' + ${transaction.amount /100}"
+                            th:text="${transaction.fromUser.username == username? 'send to: '+transaction.toUser.username : 'received from: '+transaction.fromUser.username} + ' amount: ' + ${transaction.amount /100f}"
                         ></li>
                     </ul>
                 </div>
