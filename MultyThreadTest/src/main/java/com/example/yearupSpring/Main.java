@@ -1,10 +1,11 @@
-package dev.edwinsf;
+package com.example.yearupSpring;
+
+import com.example.yearupSpring.models.Account;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
-import dev.edwinsf.models.Account;
 
 public class Main {
 	
