@@ -1,7 +1,9 @@
 package com.yearup.week7.functionalprograming;
 
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.function.Function;
 
 public class Main {
 
@@ -10,7 +12,13 @@ public class Main {
     //(* (+ a b) c)
     //1 + 2 * 24 -5;
 
+    private static HashMap<String, Integer> precedence = new HashMap<>();
+
     public static void main(String[] args){
+        precedence.put("+", 1);
+        precedence.put("-" , 1);
+        precedence.put("*", 2);
+        precedence.put("/", 2);
 
         MathOperation sum = (l,r)->l+r;
         MathOperation res = (l,r)-> l-r;
@@ -22,9 +30,14 @@ public class Main {
                 case "+" -> sum;
                 case "-" -> res;
                 case "*" -> mult;
-                case "div" -> div;
+                case "/" -> div;
                 default -> throw new Exception("bad operation");
             };
+        }, (opA, opB)->{
+            Integer precedenceA = precedence.get(opA);
+            Integer precedenceB = precedence.get(opB);
+            if(precedenceA == null || precedenceB == null)return true;//not on the list.
+            return precedenceA > precedenceB;
         });
 
         calc.start();
