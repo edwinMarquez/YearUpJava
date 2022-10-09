@@ -1,7 +1,7 @@
-package com.yearup.week7.functionalprograming;
+package com.yearup.week7.annotationssample;
 
-import com.yearup.week7.functionalprograming.annotatios.Cat;
-import com.yearup.week7.functionalprograming.annotatios.Describe;
+import com.yearup.week7.annotationssample.annotatios.Cat;
+import com.yearup.week7.annotationssample.annotatios.Describe;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

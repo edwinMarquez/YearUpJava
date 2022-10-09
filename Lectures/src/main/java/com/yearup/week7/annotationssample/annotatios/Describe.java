@@ -1,4 +1,4 @@
-package com.yearup.week7.functionalprograming.annotatios;
+package com.yearup.week7.annotationssample.annotatios;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
