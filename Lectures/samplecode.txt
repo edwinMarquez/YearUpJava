@@ -1,1 +1,2 @@
-Hello Git
+hello sample
+2nd line added
