@@ -1,5 +1,3 @@
 Hello World
 Hello Yearup
 Hello Bofa
-Hello Venus
-Hello Mercury
