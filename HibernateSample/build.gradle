@@ -13,7 +13,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     implementation('org.hibernate:hibernate-core:6.1.4.Final')
-    implementation group: 'com.h2database', name: 'h2', version: '1.3.148'
+    implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
 
 }
 
