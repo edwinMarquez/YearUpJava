@@ -11,6 +11,7 @@ public class SumCalculator {
 		int firstValue =0 ; //declaration & variable initialization
 		int secondValue =0; 
 		int sum = 0;
+		
 		firstValue =  Integer.parseInt(args[0]);
 		secondValue = Integer.parseInt(args[1]);
 		sum = firstValue + secondValue; //expression
