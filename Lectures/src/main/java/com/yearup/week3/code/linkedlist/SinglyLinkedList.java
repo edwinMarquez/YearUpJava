@@ -1,4 +1,4 @@
-package com.yearup.week4.code.linkedlist;
+package com.yearup.week3.code.linkedlist;
 
 public class SinglyLinkedList<E> {
     private static class Node<E>{
