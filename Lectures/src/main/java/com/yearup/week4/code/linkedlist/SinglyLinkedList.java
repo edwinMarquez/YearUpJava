@@ -1,4 +1,4 @@
-package com.yearup.week3.code.linkedlist;
+package com.yearup.week4.code.linkedlist;
 
 public class SinglyLinkedList<E> {
     private static class Node<E>{
@@ -67,5 +67,28 @@ public class SinglyLinkedList<E> {
         return answer;
     }
 
+    @Override
+    public String toString() {
+        // head -> 1 -> 2 -> 3 -> 4 -> 5 <- tail
+        StringBuilder sb = new StringBuilder();
+        Node<E> temp = head;
+        if(head!=null) sb.append("[head");
+        while(temp!=null){
+            sb.append(" -> "+temp.getElement());
+            temp = temp.next;
+        }
+        if(tail!=null)
+        sb.append(" <- tail]");
+        return sb.toString();
+    }
 
+    public static void main(String[] args) {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        list.addFirst(3);
+        list.addFirst(2);
+        list.addFirst(1);
+        list.addLast(4);
+        list.addLast(5);
+        System.out.println(list);
+    }
 }
