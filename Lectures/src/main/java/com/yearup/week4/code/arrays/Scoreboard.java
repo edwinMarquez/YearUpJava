@@ -1,4 +1,4 @@
-package com.yearup.week3.code.arrays;
+package com.yearup.week4.code.arrays;
 
 public class Scoreboard {
     private int numEntries = 0;
