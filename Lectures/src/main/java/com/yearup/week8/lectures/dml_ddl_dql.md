@@ -1,4 +1,9 @@
-### DDL 
+### DDL, DML, DQL.
+
+Here is a quick view of what it means:
+
+
+#### DDL 
 
 Data Definition Language. 
 
@@ -14,7 +19,7 @@ CREATE TABLE IF NOT EXISTS user_inf (
 );
 ```
 
-### DML 
+#### DML 
 
 Data Manipulation Language.
 
@@ -27,9 +32,17 @@ insert into user_inf(id, name, username, password)
 values (0, 'Tom', 'Tom111', HASH('SHA-256',CONCAT('','some-password','salt')));
 ```
 
-### DQL
+#### DQL
 
 Data Query Language.
 
 SELECT
+
+```roomsql
+SELECT * FROM ACCOUNT_INF 
+```
+
+------
+There are of course more instructions related to each one of this "types"
+
 
