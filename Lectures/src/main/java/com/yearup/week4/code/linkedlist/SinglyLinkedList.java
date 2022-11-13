@@ -44,6 +44,8 @@ public class SinglyLinkedList<E> {
         if(size == 0)
             tail = head;
         size++;
+        System.out.println("After adding "+e + " at the beginning");
+        System.out.println(this);
     }
 
     public void addLast(E e){
@@ -54,6 +56,9 @@ public class SinglyLinkedList<E> {
             tail.setNext(newest);
         tail = newest;
         size++;
+        System.out.println("After adding "+e + " at the end");
+        System.out.println(this);
+
     }
 
     public E removeFirst(){
@@ -64,6 +69,9 @@ public class SinglyLinkedList<E> {
         size--;
         if(size==0)
             tail = null;
+        System.out.println("After removing "+answer + " from the beginning");
+        System.out.println(this);
+
         return answer;
     }
 
@@ -89,6 +97,5 @@ public class SinglyLinkedList<E> {
         list.addFirst(1);
         list.addLast(4);
         list.addLast(5);
-        System.out.println(list);
     }
 }

@@ -1,9 +1,11 @@
+package com.yearup.week2;
+
 public class TypeCastingExercise1
 {
 	// Exercise to show that the final value is casted to the highest order data type.
     public static void main(String[] args)
     {
-        Double doubleObject = new Double("2.4");
+        Double doubleObject = Double.parseDouble("2.4");
         int integerValue = doubleObject.intValue();
         byte byteValue = doubleObject.byteValue();
         float floatValue = doubleObject.floatValue();

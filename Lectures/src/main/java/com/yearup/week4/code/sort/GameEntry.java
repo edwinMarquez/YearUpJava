@@ -1,4 +1,4 @@
-package com.yearup.week4.code.arrays;
+package com.yearup.week4.code.sort;
 
 public class GameEntry {
     private String name;
