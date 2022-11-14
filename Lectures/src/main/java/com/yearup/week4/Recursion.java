@@ -1,6 +1,7 @@
 package com.yearup.week4;
 
 import com.google.common.base.Stopwatch;
+import com.yearup.ElaspsedTimer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,33 +11,7 @@ public class Recursion {
         if (n <= 1) return n;
         return recFibonacci(n - 1) + recFibonacci(n - 2);
     }
-   //2^10 -> 4^5 -> 4*4^4 -> 16*4^3 -> 64*4^2
 
-   int basicPowerOf(int base, int exp, int local){
-         local = local*base;
-        exp--;
-        if(exp>0) {
-           basicPowerOf(base, exp, local);
-           return local;
-        }
-        else return local;
-   }
-
-   int linPowerOf(int base, int exp){
-       if(exp == 1)
-           return base;
-       else
-           return base*linPowerOf(base, exp - 1);
-   }
-    //2^6 -> 2^3*2*3 -> 2^2*2^1*2^2*2^1
-   int logPowerOf(int base, int exp){
-       if(exp == 1)
-           return base;
-       else if(exp%2==0)
-           return logPowerOf(base, exp/2)*logPowerOf(base, exp/2);
-       else
-           return logPowerOf(base, (exp/2))*logPowerOf(base, (exp/2)+1);
-   }
     long linFibonacci(int n) {
         long low = 0;
         long high = 1;
@@ -59,9 +34,7 @@ public class Recursion {
         return tailFibonacci(n - 1, high, low + high);
         //n=4, fib(4,0,1) -> fib(3, 1, 1) -> fib(2, 1, 2) -> fib(1, 2, 3) -> 3
     }
-    //oldlast 0
-    //last 0, 1
-    //next 1, 1
+
     static Map<Long, Long> m = new HashMap<>();
 
     long memoizedFibonacci(long n) {
@@ -71,53 +44,26 @@ public class Recursion {
         return m.get(n);
     }
 
-//    int powerOf(int n, int pow){
-//        if(pow == 1)
-//            return n;
-//        return
-//    }
     public static void main(String[] args) {
         m.put(0L, 0L);
         m.put(1L, 1L);
         Recursion fib = new Recursion();
-        Stopwatch timer = Stopwatch.createUnstarted();
-//figure out time
-        timer.reset();
+        ElaspsedTimer timer = new ElaspsedTimer();
+
         timer.start();
-        System.out.println(fib.basicPowerOf(2,5, 1));
-        timer.stop();
-        System.out.println("That took " + timer);
+        System.out.println("recFibonacci: "+fib.recFibonacci(50));
+        timer.stop("recFibonacci");
 
-//        timer.reset();
-//        timer.start();
-//        System.out.println(fib.linPowerOf(2,64));
-//        timer.stop();
-//        System.out.println("That took " + timer);
+        timer.start();
+        System.out.println("memoizedFibonacci: "+fib.memoizedFibonacci(50));
+        timer.stop("memoizedFibonacci");
 
-        //fix this timer
-//        timer.start();
-//        System.out.println("recFibonacci: "+fib.recFibonacci(50));
-//        timer.stop();
-//        System.out.println("That took " + timer);
-//
-//        timer.reset();
-//        timer.start();
-//        System.out.println("linFibonacci: "+fib.linFibonacci(50));
-//        timer.stop();
-//        System.out.println("That took " + timer);
-//        timer.reset();
-//
-//        timer.start();
-//        System.out.println("tailFibonacci: "+fib.tailFibonacci(50, 0, 1));
-//        timer.stop();
-//        System.out.println("That took " + timer);
-//        timer.reset();
-//
-//        timer.start();
-//        System.out.println("memoizedFibonacci: "+fib.memoizedFibonacci(50));
-//        timer.stop();
-//        System.out.println("That took " + timer);
+        timer.start();
+        System.out.println("linFibonacci: "+fib.linFibonacci(50));
+        timer.stop("linFibonacci");
 
-
+        timer.start();
+        System.out.println("tailFibonacci: "+fib.tailFibonacci(50, 0, 1));
+        timer.stop("tailFibonacci");
     }
 }
