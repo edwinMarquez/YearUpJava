@@ -1,6 +1,8 @@
 ## Week 3 In Class
 
 1. reverse a String in a char array
+2. find if an array contains an element, returns true or false
+3. 
 2. add removeLast method to the SinglyLinkedList class
 3. There is an issue with VolunteerPicker.java. Try and choose option 2 for the very first time. What can we do to fix it?
 4. Given an array of integers, return two numbers such that sum
