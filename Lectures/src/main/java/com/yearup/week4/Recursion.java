@@ -1,6 +1,7 @@
-package com.yearup.week5;
+package com.yearup.week4;
 
 import com.google.common.base.Stopwatch;
+import com.yearup.ElaspsedTimer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,27 +48,22 @@ public class Recursion {
         m.put(0L, 0L);
         m.put(1L, 1L);
         Recursion fib = new Recursion();
-
-        Stopwatch timer = Stopwatch.createUnstarted();
-
-        timer.start();
-        System.out.println("linFibonacci: "+fib.linFibonacci(50));
-        timer.stop();
-        System.out.println("That took " + timer);
-
-        timer.start();
-        System.out.println("tailFibonacci: "+fib.tailFibonacci(50, 0, 1));
-        timer.stop();
-        System.out.println("That took " + timer);
-
-        timer.start();
-        System.out.println("memoizedFibonacci: "+fib.memoizedFibonacci(50));
-        timer.stop();
-        System.out.println("That took " + timer);
+        ElaspsedTimer timer = new ElaspsedTimer();
 
         timer.start();
         System.out.println("recFibonacci: "+fib.recFibonacci(50));
-        timer.stop();
-        System.out.println("That took " + timer);
+        timer.stop("recFibonacci");
+
+        timer.start();
+        System.out.println("memoizedFibonacci: "+fib.memoizedFibonacci(50));
+        timer.stop("memoizedFibonacci");
+
+        timer.start();
+        System.out.println("linFibonacci: "+fib.linFibonacci(50));
+        timer.stop("linFibonacci");
+
+        timer.start();
+        System.out.println("tailFibonacci: "+fib.tailFibonacci(50, 0, 1));
+        timer.stop("tailFibonacci");
     }
 }
