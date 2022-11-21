@@ -9,4 +9,3 @@
 * Dynamically allocated in that the array is reallocated and copied when more space is necessary
 * _Size_ is the number of data stored in it
 * _capacity_ of the arrayList is the number of data that can be stored without a resize
-* 
