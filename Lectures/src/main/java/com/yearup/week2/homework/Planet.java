@@ -1,7 +1,9 @@
 package com.yearup.week2.homework;
 import java.util.*;
 //LuClandereine Leger
-//Parts 4-6 Java HW
+//Parts 4-6 Java HW 2 and HW 3
+//note: since HW3 uses the executor class I have included in this file
+//HomeWork 3 is located at the bottom starting line 107
 class Planet implements Calculator{
     //Part 4
     static String star;
@@ -101,6 +103,77 @@ class Executor{
     static void planetPosition(int position){
         System.out.println("The position of the planet is "+ position);
     }
+
+    //Start of HomeWork 3//
+    //Part 1
+    interface CelestialObject{
+        void displayCelestialobject();
+    }
+    CelestialObject CelestialObject = new CelestialObject(){
+        @Override
+        public void displayCelestialobject() {
+            System.out.println("Comet is a celestial object.");
+        }
+    };
+    //part 2
+    static class Milky{
+        void location(){
+            System.out.println("Your planet belongs to Milky way galaxy.");
+        }
+    }
+    enum PlanetName{
+        MERCURY(0,"MERCURY"),
+        VENUS(0,"VENUS"),
+        EARTH(1,"EARTH"),
+        MARS(2,"MARS"),
+        JUPITER(80,"JUPITER"),
+        SATURN(83,"SATURN"),
+        URANUS(27,"URANUS"),
+        NEPTUNE(14,"NEPTUNE");
+
+        int moons;
+        String planetName;
+
+        PlanetName(int moons, String planetName) {
+            this.planetName = planetName;
+            this.moons = moons;
+        }
+        int getMoons(String planetName){
+            return this.moons;
+        }
+        String getPlanetName(){
+            return this.planetName;
+        }
+    }
+    static void check(){
+        System.out.println("This is a loop to test the enum " +
+            "PlanetName getMoons method.\n Enter all the planet" +
+            "names in any order you want.\n The loop will go" +
+            " 8 times because there are 8 planets.\n To exit the" +
+            "loop enter -1 ");
+        for (PlanetName test : PlanetName.values()){
+
+            System.out.println("Enter a planet: ");
+            String planet = (scanner.nextLine()).toUpperCase();
+            if (planet.equals("-1")){
+                break;
+            }
+
+            //first loops is just a counter, second loop checks
+            //which planet name the person said
+            //this may seem extra but its necessary
+            for (PlanetName ah: PlanetName.values()){
+                if (planet.equals(ah.getPlanetName())){
+                    System.out.println(ah.getMoons(planet));
+                }
+
+            }
+
+
+        }
+    }
+
+    ////////////////end of HW 3 (to be continued in main)/////////////
     public static void main (String[] args){
         //Welcome
         System.out.println("===========================\n" +
@@ -130,6 +203,16 @@ class Executor{
         }else{
             System.out.println("Thanks for using our planet application. Goodbye!");
         }
+
+        //Start of Main class for Homework 3 --------------------------------------------------------------
+
+        String test = " ";
+        do {
+            check();
+            System.out.println("Do you want to test again? Press y " +
+                    "for yes and n for no");
+            test = scanner.nextLine();
+        }while(test.equals("y"));
 
     }
 
