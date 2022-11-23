@@ -34,4 +34,5 @@ hs_err_pid*
 /MultyThreadTest/build/
 
 scratch/
+/Lectures/src/main/resources/names.txt
 /DramaticCounter/src/main/resources/names.txt

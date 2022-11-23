@@ -43,4 +43,29 @@ class HomeWorkTest {
         SinglyLinkedList<Integer> out = HomeWork.reverseLinkedList(input);
         assertEquals(out, "[head -> 4 -> 3 -> 2 -> 1 <- tail]");
     }
+
+    @Test
+    public void TicTacToeWinner_whenXisWinninig_returnsX(){
+        char[][] inp = new char[][]{{'X','X','O'},
+                                    {'O','X','O'},
+                                    {'O','O','X'}};
+        char out = HomeWork.ticTacToeWinner(inp);
+        assertEquals('X', out);
+    }
+    @Test
+    public void TicTacToeWinner_whenOisWinninig_returnsO(){
+        char[][] inp = new char[][]{{'X','X','O'},
+                                    {'O','O','O'},
+                                    {'X','O','X'}};
+        char out = HomeWork.ticTacToeWinner(inp);
+        assertEquals('O', out);
+    }
+    @Test
+    public void TicTacToeWinner_whenDraw_returnsD(){
+        char[][] inp = new char[][]{{'X','X','O'},
+                                    {'O','O','X'},
+                                    {'X','O','X'}};
+        char out = HomeWork.ticTacToeWinner(inp);
+        assertEquals('D', out);
+    }
 }
