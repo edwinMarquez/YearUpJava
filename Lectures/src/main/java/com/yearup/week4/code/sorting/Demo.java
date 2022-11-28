@@ -61,18 +61,18 @@ public class Demo {
         int index;
         //Linear Search on an Unsorted Array
         int[] arr1 = {56,12,38,23,2,8,72,91,5,16};
+        startTime =  System.nanoTime();
         index=linearSearch(arr1,16);
         System.out.println("Element found in Unsorted Array at index: "+index);
-        startTime =  System.nanoTime();
         endTime =  System.nanoTime();
         elapsedTime = endTime-startTime;
         System.out.println("Total Elapsed Time for Linear Search is: "+elapsedTime);
 
         //Binary Search on a Sorted Array
         int[] arr2 = {56,12,38,23,2,8,72,91,5,16};
+        startTime =  System.nanoTime();
         int index2=binarySearch2(arr2,91);
         System.out.println("Element found in Array at index: "+index2);
-        startTime =  System.nanoTime();
         endTime =  System.nanoTime();
         elapsedTime = endTime-startTime;
         System.out.println("Total Elapsed Time for Binary Search is: "+elapsedTime);
