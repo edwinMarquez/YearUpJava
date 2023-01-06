@@ -21,3 +21,18 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+#custom
+.idea/
+
+/Lectures/.gradle/
+/HibernateSample/.gradle/
+/MultyThreadTest/.gradle/
+
+/Lectures/build/
+/HibernateSample/build/
+/MultyThreadTest/build/
+
+scratch/
+/Lectures/src/main/resources/names.txt
+/DramaticCounter/src/main/resources/names.txt

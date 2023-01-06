@@ -14,6 +14,8 @@ If java version needs to be installed, references can be found here [JDK Install
 
 ## Content:
 
+### week 4
+[Slides](Lectures/src/main/java/com/yearup/week4/lectures/slides.md)
 ### week 7:
 [Content](Lectures/src/main/java/com/yearup/week7/lectures/outline.md)
 
